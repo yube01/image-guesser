@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Image Guesser </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div>
+        Lives:
+        <span class="lives">
+            
+        </span>
+    </div>
+
+    <section>
+
+
+    </section>
+    
+</body>
+<script>
+
+    const section = document.querySelector("section");
+    const lives = document.querySelector("span");
+    livesData = 10;
+
+    lives.textContent = livesData
+
+
+    image = ()=>[
+        {imgSrc:"./img/1.jpg", name:"earth"},
+        {imgSrc:"./img/2.jpg", name:"saturn"},
+        {imgSrc:"./img/3.jpg", name:"jupiter"},
+        {imgSrc:"./img/4.jpg", name:"mars"},
+        {imgSrc:"./img/5.jpg", name:"neptune"},
+        {imgSrc:"./img/6.jpg", name:"uranus"},
+        {imgSrc:"./img/7.jpg", name:"mercury"},
+        {imgSrc:"./img/8.jpg", name:"pluto"},
+        {imgSrc:"./img/1.jpg", name:"earth"},
+        {imgSrc:"./img/2.jpg", name:"saturn"},
+        {imgSrc:"./img/3.jpg", name:"jupiter"},
+        {imgSrc:"./img/4.jpg", name:"mars"},
+        {imgSrc:"./img/5.jpg", name:"neptune"},
+        {imgSrc:"./img/6.jpg", name:"uranus"},
+        {imgSrc:"./img/7.jpg", name:"mercury"},
+        {imgSrc:"./img/8.jpg", name:"pluto"}
+    ]
+
+    const randomImage = ()=>{
+        cardData = image();
+        cardData.sort(()=>
+            Math.random() - 0.5)
+            return cardData;
+        
+    }
+
+
+    const generate = ()=>{
+        cardData = randomImage();
+        
+        cardData.forEach((item) => {
+        card = document.createElement("div");
+        face = document.createElement("img");
+        back = document.createElement("div")
+
+        card.classList = "card";
+        face.classList = "face";
+        back.classList = "back"
+
+        face.src = item.imgSrc
+
+        section.appendChild(card);
+        card.appendChild(face);
+        card.appendChild(back)
+
+
+       card.addEventListener("click",(e)=>{
+        card.classList.toggle("toggle");
+       })
+
+     
+        });
+
+      
+
+
+    }
+
+    generate()
+
+    
+
+
+    
+    
+
+</script>
+</html>
