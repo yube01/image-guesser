@@ -26,12 +26,12 @@
 
     const section = document.querySelector("section");
     const lives = document.querySelector("span");
-    livesData = 10;
+    livesData = 5;
 
     lives.textContent = livesData
 
 
-    image = ()=>[
+    const image = ()=>[
         {imgSrc:"./img/1.jpg", name:"earth"},
         {imgSrc:"./img/2.jpg", name:"saturn"},
         {imgSrc:"./img/3.jpg", name:"jupiter"},
@@ -51,7 +51,7 @@
     ]
 
     const randomImage = ()=>{
-        cardData = image();
+        const cardData = image();
         cardData.sort(()=>
             Math.random() - 0.5)
             return cardData;
@@ -63,15 +63,17 @@
         cardData = randomImage();
         
         cardData.forEach((item) => {
-        card = document.createElement("div");
-        face = document.createElement("img");
-        back = document.createElement("div")
+        const card = document.createElement("div");
+        const face = document.createElement("img");
+        const back = document.createElement("div")
 
-        card.classList = "card";
-        face.classList = "face";
-        back.classList = "back"
+         card.classList = "card";
+         face.classList = "face";
+         back.classList = "back"
 
         face.src = item.imgSrc
+
+        card.setAttribute("name",item.name)
 
         section.appendChild(card);
         card.appendChild(face);
@@ -79,10 +81,9 @@
 
 
        card.addEventListener("click",(e)=>{
-        card.classList.toggle("toggle");
+        card.classList.toggle("toggle")
+        checkedCard(e)
        })
-
-     
         });
 
       
@@ -90,6 +91,71 @@
 
     }
 
+    const checkedCard = (e)=>{
+       const  cardClicked = e.target;
+       const toggle = document.querySelectorAll(".toggle")
+       cardClicked.classList.add("flip")
+       const match = document.querySelectorAll(".flip")
+       if( match.length === 2 ){
+        if( match[0].getAttribute("name") === match[1].getAttribute("name")){
+            console.log("matched")
+            match.forEach((card)=>{
+                card.classList.remove("flip")
+                card.style.pointerEvents ="none"
+            })
+        }else{
+        console.log("not matched")
+        match.forEach((card) =>{
+            card.classList.remove("flip")
+            setTimeout(()=>card.classList.remove("toggle"),1000)
+        })
+    livesData --;
+    lives.textContent = livesData;
+    if( livesData === 0){
+        restart("Try Again")
+    }
+       }
+       
+       }
+
+       if( toggle.length === 16){
+        restart("You Won")
+       }
+    }
+
+
+    const restart = (Text) =>{
+
+        let cardData = randomImage();
+        let faces = document.querySelectorAll(".face")
+        let cards = document.querySelectorAll(".card")
+        
+        cardData.forEach((item,index)=>{
+            cards[index].classList.remove("toggle")
+
+
+            
+            setTimeout(()=>{
+            cards[index].style.pointerEvents("all")
+            faces[index].src = item.imgSrc;
+            cards[index].setAttribute("name",item.name)
+            section.style.pointerEvents="all"               
+
+            },1000)
+
+           
+        })
+
+        livesData = 5;
+        lives.textContent = livesData;
+
+        setTimeout(()=>{
+            window.alert(Text)
+        },100)
+
+
+
+    }    
     generate()
 
     

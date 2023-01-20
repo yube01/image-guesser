@@ -25,6 +25,8 @@ section{
     height: 100%;
     object-fit: cover;
     position: absolute;
+    pointer-events: none;
+    transform: rotateY(-180deg);
    
 }
 
@@ -35,6 +37,7 @@ section{
     position: absolute;
     background-color: white;
     backface-visibility: hidden;
+    pointer-events: none;
 }
 
 .toggle{
